@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "app_pb/;app_pb";
+
+
+
+message Application {
+  string app_id = 1;
+  string name = 2;
+  string svc_url = 3;
+  string bot_token = 4;
+  int32 type = 7;
+  SvcType svc_type = 6;
+  CmdConfigs cmd_config = 5;
+}
+
+enum SvcType{
+  Http = 0;
+  Grpc = 1 ;
+}
+
+message CmdConfigs{
+  map<string, string> cmd_config = 1;
+}
+
+message CmdConfig{
+  string command = 1;
+  string desc = 2;
+}

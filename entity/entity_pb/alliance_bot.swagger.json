@@ -1,0 +1,612 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "alliance_bot.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/bot/create/quiz": {
+      "post": {
+        "operationId": "BotService_CreateQuiz",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCreateQuizResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoCreateQuizReq"
+            }
+          }
+        ],
+        "tags": [
+          "BotService"
+        ]
+      }
+    },
+    "/bot/get/groups": {
+      "post": {
+        "operationId": "BotService_GetGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetGroupResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetGroupReq"
+            }
+          }
+        ],
+        "tags": [
+          "BotService"
+        ]
+      }
+    },
+    "/bot/get/info": {
+      "post": {
+        "operationId": "BotService_GetBotInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetBotInfoResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetBotInfoReq"
+            }
+          }
+        ],
+        "tags": [
+          "BotService"
+        ]
+      }
+    },
+    "/bot/get/users": {
+      "post": {
+        "operationId": "BotService_GetUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetUsersResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetUsersReq"
+            }
+          }
+        ],
+        "tags": [
+          "BotService"
+        ]
+      }
+    },
+    "/bot/helloworld": {
+      "post": {
+        "operationId": "BotService_HelloWorld",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCommonResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoHelloWorldReq"
+            }
+          }
+        ],
+        "tags": [
+          "BotService"
+        ]
+      }
+    },
+    "/bot/restart": {
+      "post": {
+        "operationId": "BotService_RestartBot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCommonResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoRestartReq"
+            }
+          }
+        ],
+        "tags": [
+          "BotService"
+        ]
+      }
+    },
+    "/bot/stop/stop": {
+      "post": {
+        "operationId": "BotService_StopQuiz",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCommonResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoStopQuizReq"
+            }
+          }
+        ],
+        "tags": [
+          "BotService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoCommonResp": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/protoErrorMessage"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "protoCreateQuizReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "quiz_id": {
+          "type": "string"
+        },
+        "app_type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "quiz": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoQuestion"
+          }
+        },
+        "group_id": {
+          "type": "string"
+        },
+        "needAnonymous": {
+          "type": "boolean"
+        },
+        "active_time": {
+          "type": "string",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "channel_id": {
+          "type": "string"
+        }
+      }
+    },
+    "protoCreateQuizResp": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/protoErrorMessage"
+        },
+        "data": {
+          "$ref": "#/definitions/protoCreateQuizRespData"
+        }
+      }
+    },
+    "protoCreateQuizRespData": {
+      "type": "object",
+      "properties": {
+        "quiz_id": {
+          "type": "string"
+        },
+        "group_id": {
+          "type": "string"
+        }
+      }
+    },
+    "protoDiscordBotInfo": {
+      "type": "object",
+      "properties": {
+        "bot_name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "bot_id": {
+          "type": "string"
+        }
+      }
+    },
+    "protoErrorMessage": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        }
+      }
+    },
+    "protoGetBotInfoReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        }
+      }
+    },
+    "protoGetBotInfoResp": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/protoErrorMessage"
+        },
+        "data": {
+          "$ref": "#/definitions/protoGetBotInfoRespData"
+        }
+      }
+    },
+    "protoGetBotInfoRespData": {
+      "type": "object",
+      "properties": {
+        "tg_bot_info": {
+          "$ref": "#/definitions/protoTelegramBotInfo"
+        },
+        "discord_bot_info": {
+          "$ref": "#/definitions/protoDiscordBotInfo"
+        },
+        "bot_name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "protoGetGroupReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "app_type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protoGetGroupResp": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/protoErrorMessage"
+        },
+        "data": {
+          "$ref": "#/definitions/protoGetGroupRespData"
+        }
+      }
+    },
+    "protoGetGroupRespData": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoGroup"
+          }
+        }
+      }
+    },
+    "protoGetUserRespData": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/protoTelegramUser"
+          }
+        }
+      }
+    },
+    "protoGetUsersReq": {
+      "type": "object",
+      "properties": {
+        "group_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          }
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "app_type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protoGetUsersResp": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/protoErrorMessage"
+        },
+        "data": {
+          "$ref": "#/definitions/protoGetUserRespData"
+        }
+      }
+    },
+    "protoGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "string"
+        }
+      }
+    },
+    "protoHelloWorldReq": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "protoInlineMarkupType": {
+      "type": "string",
+      "enum": [
+        "None",
+        "ForwardBot"
+      ],
+      "default": "None"
+    },
+    "protoMsgType": {
+      "type": "string",
+      "enum": [
+        "Content",
+        "Photo"
+      ],
+      "default": "Content"
+    },
+    "protoQuestion": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "correct_index": {
+          "type": "string",
+          "format": "int64"
+        },
+        "message_id": {
+          "type": "string"
+        }
+      }
+    },
+    "protoRestartReq": {
+      "type": "object"
+    },
+    "protoSendMsgResp": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/protoErrorMessage"
+        },
+        "data": {
+          "$ref": "#/definitions/protoSendMsgRespData"
+        }
+      }
+    },
+    "protoSendMsgRespData": {
+      "type": "object",
+      "properties": {
+        "group_id": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "protoStopQuizReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "quiz_id": {
+          "type": "string"
+        },
+        "app_type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protoTelegramBotInfo": {
+      "type": "object",
+      "properties": {
+        "bot_name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "protoTelegramUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

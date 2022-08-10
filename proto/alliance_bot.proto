@@ -1,0 +1,240 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "alliance_bot_pb/;alliance_bot_pb";
+import "google/api/annotations.proto";
+
+
+service BotService{
+  rpc CreateQuiz(CreateQuizReq)returns(CreateQuizResp){
+    option (google.api.http) = {
+      post: "/bot/create/quiz"
+      body: "*"
+    };
+  }
+
+  rpc SendMsg(SendMsgReq)returns(SendMsgResp){};
+
+  rpc StopQuiz(StopQuizReq)returns(CommonResp){
+    option (google.api.http) = {
+      post: "/bot/stop/stop"
+      body: "*"
+    };
+  }
+
+  rpc HelloWorld(HelloWorldReq)returns(CommonResp){
+    option (google.api.http) = {
+      post: "/bot/helloworld"
+      body: "*"
+    };
+  }
+
+  rpc GetGroups(GetGroupReq)returns(GetGroupResp){
+    option (google.api.http) = {
+      post: "/bot/get/groups"
+      body: "*"
+    };
+  }
+
+  rpc GetUsers(GetUsersReq) returns(GetUsersResp){
+    option (google.api.http) = {
+      post: "/bot/get/users"
+      body: "*"
+    };
+  }
+
+  rpc GetBotInfo(GetBotInfoReq)returns(GetBotInfoResp){
+    option (google.api.http) = {
+      post: "/bot/get/info"
+      body: "*"
+    };
+  }
+
+  rpc RestartBot(RestartReq)returns(CommonResp){
+    option (google.api.http) = {
+      post: "/bot/restart"
+      body: "*"
+    };
+  }
+}
+
+message ErrorMessage{
+  int32  code = 1;
+  string message = 2;
+  string detail = 3;
+}
+
+
+message SendMsgReq{
+  string app_id = 1;
+  int32 app_type = 11;
+  string group_id = 2;
+  string title = 10;
+  string content = 3;
+  repeated int64 mention_user_ids = 6;
+  bool markdown = 4;
+  bool preview = 5;
+  MsgType msg_type = 7;
+  string photo_url = 8;
+  InlineMarkupType inline_markup = 9;
+  int64 deadline = 12;
+}
+
+message SendMsgRespData{
+  string group_id = 3;
+  int64 message_id = 4;
+}
+
+message SendMsgResp{
+  ErrorMessage error = 1;
+  SendMsgRespData data = 2;
+}
+
+
+
+enum InlineMarkupType{
+  None = 0;
+  ForwardBot = 1;
+}
+
+enum MsgType{
+  Content = 0;
+  Photo = 1;
+}
+
+
+message HelloWorldReq{
+  string msg = 1;
+}
+
+message CommonResp{
+  ErrorMessage error = 1;
+  bool success = 2;
+}
+
+
+message CreateQuizReq{
+  string app_id = 1;
+  string quiz_id = 2;
+  int32 app_type = 10;
+  repeated Question quiz = 3;
+  string group_id = 4;
+  bool needAnonymous = 5;
+  int64 active_time = 6;
+  string title = 7;
+  string description = 8;
+  string channel_id = 9;
+}
+
+message Question {
+  string question = 1;
+  repeated string options = 2;
+  int64 correct_index = 3;
+  string message_id = 4;
+}
+
+
+message CreateQuizRespData{
+  string quiz_id = 3;
+  string group_id = 4;
+}
+
+message CreateQuizResp{
+  ErrorMessage error = 1;
+  CreateQuizRespData data = 2;
+}
+
+message StopQuizReq{
+  string app_id = 1;
+  string quiz_id = 2;
+  int32 app_type = 3;
+}
+
+message QuizCallbackReq{
+  string quiz_id = 1;
+  int64 open_id = 2;
+  QuizCallbackType callback_type = 3;
+  string group_id = 4;
+  string app_id = 5;
+  int32 app_type = 6;
+  int64 participate_num = 7;
+}
+
+message GetGroupReq{
+  string app_id = 1;
+  int32 app_type = 2;
+}
+
+
+
+message GetGroupRespData{
+  repeated Group groups = 3;
+}
+
+message GetGroupResp{
+  ErrorMessage error = 1;
+  GetGroupRespData data = 2;
+}
+
+message GetBotInfoReq{
+  string app_id = 1;
+}
+
+message GetBotInfoRespData{
+  TelegramBotInfo tg_bot_info = 1;
+  DiscordBotInfo discord_bot_info = 2;
+  string bot_name = 3;
+  int64 type = 4;
+}
+
+message TelegramBotInfo{
+  string bot_name = 3;
+  int64 type = 4;
+}
+
+message DiscordBotInfo{
+  string bot_name = 3;
+  int32 type = 4;
+  string bot_id = 5;
+}
+
+
+message GetBotInfoResp{
+  ErrorMessage error = 1;
+  GetBotInfoRespData data = 2;
+}
+
+message GetUsersReq{
+  string group_id = 1;
+  repeated int64 user_id = 2;
+  string app_id = 3;
+  int32 app_type = 4;
+}
+
+message GetUserRespData{
+  map<int64, TelegramUser> users = 1;
+}
+
+message TelegramUser{
+  string name = 1;
+}
+
+message GetUsersResp{
+  ErrorMessage error = 1;
+  GetUserRespData data = 2;
+}
+
+message RestartReq{}
+
+message Group{
+  string id = 1;
+  string name = 2;
+  string profile = 3;
+}
+
+enum QuizCallbackType{
+  CorrectUser = 0;
+  Stop = 1;
+  Generate = 2;
+}

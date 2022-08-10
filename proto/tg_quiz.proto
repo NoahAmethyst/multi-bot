@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "tg_quiz_pb/;tg_quiz_pb";
+
+
+message Jobs{
+  map<string,Job> jobs=1;
+}
+
+message Job{
+  string app_id = 1;
+  string quiz_id = 2;
+  int32 app_type = 3;
+  int64 execute_time = 4;
+}
+
+message QuizQuestionMemory{
+  //quizId- question ids
+  map<string, Questions> quiz_question = 1;
+  //questionId - quizId
+  map<string, string> question_quiz = 4;
+}
+
+message QuizParticipateMemory{
+  //quizId - userId - correctNum
+  map<string, QuizUserCorrect> quiz_correct_user = 2;
+  //question correct
+  map<string, QuestionCorrectUsers> question_correct_user = 8;
+  //quizId -userId - participate
+  map<string, Participate> quiz_participate = 3;
+
+}
+
+message QuizPlatMemory{
+  //questionId - messageId
+  map<string, int64> question_msg = 5;
+  //quizId - groupId
+  map<string, int64> chat_memory = 6;
+  //poll record
+  map<string, Poll> memory = 7;
+}
+
+
+message Questions{
+  repeated string ids = 1;
+}
+
+message QuizUserCorrect{
+  map<int64, int64> correct_user = 1;
+}
+
+message Participate{
+  map<int64, bool> participate = 1;
+}
+
+message QuestionCorrectUsers{
+  repeated int64 ids = 1;
+}
+
+message Poll{
+  string id = 1;
+  int64 correct_option = 2;
+  string poll_type = 3;
+}
